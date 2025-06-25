@@ -83,28 +83,30 @@ public class MailTable {
 	}
 
 	public void setReadStatus(int mailId) {
-		Connection con = null;
-		PreparedStatement pstm = null;
-		ResultSet rs = null;
-		try {
-			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("SELECT * FROM mail WHERE id=?");
-			pstm.setInt(1, mailId);
-			rs = pstm.executeQuery();
-			if (rs != null && rs.next()) {
-				pstm = con.prepareStatement("UPDATE mail SET read_status=? WHERE id=?");
-				pstm.setInt(1, 1);
-				pstm.setInt(2, mailId);
-				pstm.execute();
-				changeMailStatus(mailId);
-			}
-		} catch (SQLException e) {
-			_log.error(e.getLocalizedMessage(), e);
-		} finally {
-			SQLUtil.close(rs);
-			SQLUtil.close(pstm);
-			SQLUtil.close(con);
-		}
+	    Connection con = null;
+	    PreparedStatement pstm = null;
+	    ResultSet rs = null;
+	    try {
+	        con = L1DatabaseFactory.getInstance().getConnection();
+	        pstm = con.prepareStatement("SELECT * FROM mail WHERE id=?");
+	        pstm.setInt(1, mailId);
+	        rs = pstm.executeQuery();
+	        if (rs != null && rs.next()) {
+	            // FECHAR o pstm antes de reutilizar
+	            SQLUtil.close(pstm);
+	            pstm = con.prepareStatement("UPDATE mail SET read_status=? WHERE id=?");
+	            pstm.setInt(1, 1);
+	            pstm.setInt(2, mailId);
+	            pstm.execute();
+	            changeMailStatus(mailId);
+	        }
+	    } catch (SQLException e) {
+	        _log.error(e.getLocalizedMessage(), e);
+	    } finally {
+	        SQLUtil.close(rs);
+	        SQLUtil.close(pstm);
+	        SQLUtil.close(con);
+	    }
 	}
 
 	public void setMailType(int mailId, int type) {
@@ -117,6 +119,7 @@ public class MailTable {
 			pstm.setInt(1, mailId);
 			rs = pstm.executeQuery();
 			if (rs != null && rs.next()) {
+				SQLUtil.close(pstm);
 				pstm = con.prepareStatement("UPDATE mail SET type=? WHERE id=?");
 				pstm.setInt(1, type);
 				pstm.setInt(2, mailId);

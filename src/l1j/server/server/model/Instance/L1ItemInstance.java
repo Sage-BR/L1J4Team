@@ -74,6 +74,16 @@ public class L1ItemInstance extends L1Object implements Comparable<L1ItemInstanc
 
 	private int _attrEnchantLevel;
 
+	private boolean _isSealed = false;
+	
+	public boolean isSealed() {
+		return _isSealed;
+	}
+
+	public void setSealed(boolean flag) {
+		_isSealed = flag;
+	}
+	
 	public L1ItemInstance() {
 		_count = 1;
 		_enchantLevel = 0;
@@ -1172,21 +1182,15 @@ public class L1ItemInstance extends L1Object implements Comparable<L1ItemInstanc
 	}
 
 	public int getStatusForPacket() {
-		// 0: Blessed
-		// 1: Normal
-		// 2: Cursed
-		// 3: Unidentified
-		// 128: Blessed & Sealed
-		// 129: & Sealing
-		// 130: Cursed & Sealed
-		// 131: Unidentified & Sealed
-
-		int status = getBless();
+		int status;
 
 		if (!isIdentified()) {
 			status = 3;
+		} else {
+			status = getBless(); // 0 = blessed, 1 = normal, 2 = cursed
 		}
-		if (false) { // --TODO -- fixisSealed()) {
+
+		if (isSealed()) {
 			status += 128;
 		}
 

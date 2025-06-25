@@ -35,19 +35,14 @@ public class S_Mail extends ServerBasePacket {
 	public S_Mail(L1PcInstance pc, int type) {
 		ArrayList<L1Mail> mails = new ArrayList<>();
 		for (L1Mail mail : MailTable.getAllMail()) {
-			if (mail.getInBoxId() == pc.getId()) {
-				if (mail.getType() == type) {
-					mails.add(mail);
-				}
+			if (mail.getInBoxId() == pc.getId() && mail.getType() == type) {
+				mails.add(mail);
 			}
 		}
-		if (mails.isEmpty()) {
-			return;
-		}
 
-		writeC(Opcodes.S_OPCODE_MAIL);
+		writeC(Opcodes.S_OPCODE_MAIL); // Sempre escreve o cabeçalho, mesmo se vazio
 		writeC(type);
-		writeH(mails.size());
+		writeH(mails.size()); // 0 se estiver vazio
 
 		for (L1Mail mail : mails) {
 			writeD(mail.getId());
@@ -99,11 +94,14 @@ public class S_Mail extends ServerBasePacket {
 			return;
 		}
 		L1Mail mail = MailTable.getMail(mailId);
+		writeC(Opcodes.S_OPCODE_MAIL);
+		writeC(type);
+		writeD(mailId);
+
 		if (mail != null) {
-			writeC(Opcodes.S_OPCODE_MAIL);
-			writeC(type);
-			writeD(mail.getId());
 			writeBytes(mail.getContent());
+		} else {
+			writeC(0); // ou algo indicando que o conteúdo está ausente
 		}
 	}
 

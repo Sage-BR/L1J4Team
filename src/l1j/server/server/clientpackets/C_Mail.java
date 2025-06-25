@@ -148,4 +148,12 @@ public class C_Mail extends ClientBasePacket {
 	public String getType() {
 		return C_MAIL;
 	}
+
+	public static Logger get_log() {
+		return _log;
+	}
+
+	public static void set_log(Logger _log) {
+		C_Mail._log = _log;
+	}
 }
