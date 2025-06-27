@@ -534,6 +534,8 @@ public class L1PcInstance extends L1Character {
 		}
 	}
 
+	
+	
 	public long _oldTime = 0;
 	public L1PinkName _pinkName = null;
 	private final AcceleratorChecker _acceleratorChecker = new AcceleratorChecker(this);

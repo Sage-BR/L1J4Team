@@ -282,4 +282,40 @@ public class PetTable {
 	public L1Pet[] getPetTableList() {
 		return _pets.values().toArray(new L1Pet[_pets.size()]);
 	}
+	
+	public void updatePetWeapon(int itemObjId, int weaponItemId) {
+	    Connection con = null;
+	    PreparedStatement pstm = null;
+	    try {
+	        con = L1DatabaseFactory.getInstance().getConnection();
+	        pstm = con.prepareStatement("UPDATE pets SET weapon = ? WHERE item_obj_id = ?");
+	        pstm.setInt(1, weaponItemId);
+	        pstm.setInt(2, itemObjId);
+	        pstm.execute();
+	    } catch (Exception e) {
+	        _log.error(e.getLocalizedMessage(), e);
+	    } finally {
+	        SQLUtil.close(pstm);
+	        SQLUtil.close(con);
+	    }
+	}
+
+	public void updatePetArmor(int itemObjId, int armorItemId) {
+	    Connection con = null;
+	    PreparedStatement pstm = null;
+	    try {
+	        con = L1DatabaseFactory.getInstance().getConnection();
+	        pstm = con.prepareStatement("UPDATE pets SET armor = ? WHERE item_obj_id = ?");
+	        pstm.setInt(1, armorItemId);
+	        pstm.setInt(2, itemObjId);
+	        pstm.execute();
+	    } catch (Exception e) {
+	        _log.error(e.getLocalizedMessage(), e);
+	    } finally {
+	        SQLUtil.close(pstm);
+	        SQLUtil.close(con);
+	    }
+	}
+
+
 }

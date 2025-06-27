@@ -72,17 +72,25 @@ public class TextMapReader extends MapReader {
 		int y = 0;
 		String line;
 		while ((line = in.readLine()) != null) {
-			if (line.trim().length() == 0 || line.startsWith("#")) {
+			if (line.trim().isEmpty() || line.startsWith("#")) {
 				continue; // Skip blank lines and comments
 			}
 			int x = 0;
 			StringTokenizer tok = new StringTokenizer(line, ",");
 			while (tok.hasMoreTokens()) {
+				if (x >= xSize || y >= ySize) {
+					_log.warn("Map " + mapId + " exceeds declared size at (" + x + "," + y + ")");
+					break; // evita o ArrayIndexOutOfBounds
+				}
 				byte tile = Byte.parseByte(tok.nextToken());
 				map[x][y] = tile;
 				x++;
 			}
 			y++;
+			if (y >= ySize) {
+				_log.warn("Map " + mapId + " has more rows than expected (" + ySize + ")");
+				break;
+			}
 		}
 		in.close();
 		return map;

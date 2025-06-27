@@ -75,17 +75,23 @@ public class C_UseSkill extends ClientBasePacket {
 			return;
 		}
 
+		// FIXME: Test dir/no dir
 		if (Config.CHECK_SPELL_INTERVAL) {
-			int result;
-			// FIXME dir/no dir
 			L1Skill skill = SkillTable.getInstance().findBySkillId(skillId);
-			if (SkillTable.getInstance().findBySkillId(skillId).getActionId() == ActionCodes.ACTION_SkillAttack) {
-				result = pc.getAcceleratorChecker().checkInterval(AcceleratorChecker.ACT_TYPE.SPELL_DIR, skill);
-			} else {
-				result = pc.getAcceleratorChecker().checkInterval(AcceleratorChecker.ACT_TYPE.SPELL_NODIR, skill);
+			if (skill == null) {
+			    return; // evita NullPointerException
 			}
+
+			int result;  // declara apenas uma vez
+
+			if (skill.getActionId() == ActionCodes.ACTION_SkillAttack) {
+			    result = pc.getAcceleratorChecker().checkInterval(AcceleratorChecker.ACT_TYPE.SPELL_DIR, skill);
+			} else {
+			    result = pc.getAcceleratorChecker().checkInterval(AcceleratorChecker.ACT_TYPE.SPELL_NODIR, skill);
+			}
+
 			if (result == AcceleratorChecker.R_LIMITEXCEEDED) {
-				return;
+			    return;
 			}
 		}
 

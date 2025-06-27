@@ -659,34 +659,31 @@ public class L1PetInstance extends L1NpcInstance {
 	private L1ItemInstance _weapon;
 
 	public void setWeapon(L1ItemInstance weapon) {
-		_weapon = weapon;
+	    _weapon = weapon;
 
-		if (weapon == null)
-			return;
+	    if (weapon == null)
+	        return;
 
-		// FIXME: This is a dreadful experimental hack.
-		L1Pet l1pet = PetTable.getInstance().getTemplate(_itemObjId);
-		if (l1pet != null)
-			l1pet.set_weapon(weapon.getItemId());
+	    // Atualiza o pet e salva usando método específico
+	    PetTable.getInstance().updatePetWeapon(_itemObjId, weapon.getItemId());
 
-		// TODO: stat changes
-		int itemId = weapon.getItem().getItemId();
-		L1PetItem template = PetItemTable.getInstance().getTemplate(itemId);
-		if (template == null) {
-			return;
-		}
-		setHitByWeapon(template.getHitModifier());
-		setDamageByWeapon(template.getDamageModifier());
-		addStr(template.getAddStr());
-		addCon(template.getAddCon());
-		addDex(template.getAddDex());
-		addInt(template.getAddInt());
-		addWis(template.getAddWis());
-		addMaxHp(template.getAddHp());
-		addMaxMp(template.getAddMp());
-		addSp(template.getAddSp());
-		addMr(template.getAddMr());
-		weapon.setEquipped(true);
+	    // Aplica os bônus da arma
+	    L1PetItem template = PetItemTable.getInstance().getTemplate(weapon.getItem().getItemId());
+	    if (template == null) {
+	        return;
+	    }
+	    setHitByWeapon(template.getHitModifier());
+	    setDamageByWeapon(template.getDamageModifier());
+	    addStr(template.getAddStr());
+	    addCon(template.getAddCon());
+	    addDex(template.getAddDex());
+	    addInt(template.getAddInt());
+	    addWis(template.getAddWis());
+	    addMaxHp(template.getAddHp());
+	    addMaxMp(template.getAddMp());
+	    addSp(template.getAddSp());
+	    addMr(template.getAddMr());
+	    weapon.setEquipped(true);
 	}
 
 	public L1ItemInstance getWeapon() {
@@ -696,33 +693,30 @@ public class L1PetInstance extends L1NpcInstance {
 	private L1ItemInstance _armor;
 
 	public void setArmor(L1ItemInstance armor) {
-		_armor = armor;
+	    _armor = armor;
 
-		if (armor == null)
-			return;
+	    if (armor == null)
+	        return;
 
-		// FIXME: see note in setWeapon().
-		L1Pet l1pet = PetTable.getInstance().getTemplate(_itemObjId);
-		if (l1pet != null)
-			l1pet.set_armor(armor.getItemId());
+	    PetTable.getInstance().updatePetArmor(_itemObjId, armor.getItem().getItemId());
 
-		int itemId = armor.getItem().getItemId();
-		L1PetItem template = PetItemTable.getInstance().getTemplate(itemId);
-		if (template == null) {
-			return;
-		}
-		addAc(template.getAddAc());
-		addStr(template.getAddStr());
-		addCon(template.getAddCon());
-		addDex(template.getAddDex());
-		addInt(template.getAddInt());
-		addWis(template.getAddWis());
-		addMaxHp(template.getAddHp());
-		addMaxMp(template.getAddMp());
-		addSp(template.getAddSp());
-		addMr(template.getAddMr());
-		armor.setEquipped(true);
+	    L1PetItem template = PetItemTable.getInstance().getTemplate(armor.getItem().getItemId());
+	    if (template == null) {
+	        return;
+	    }
+	    addAc(template.getAddAc());
+	    addStr(template.getAddStr());
+	    addCon(template.getAddCon());
+	    addDex(template.getAddDex());
+	    addInt(template.getAddInt());
+	    addWis(template.getAddWis());
+	    addMaxHp(template.getAddHp());
+	    addMaxMp(template.getAddMp());
+	    addSp(template.getAddSp());
+	    addMr(template.getAddMr());
+	    armor.setEquipped(true);
 	}
+
 
 	public void removeArmor(final L1ItemInstance armor) {
 		int itemId = armor.getItem().getItemId();

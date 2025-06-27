@@ -26,55 +26,94 @@ import java.util.logging.Formatter;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 
+/**
+ * Custom formatter for console logging in L1J server
+ * Provides formatted output with timestamps, class names, and exception handling
+ */
 public class ConsoleLogFormatter extends Formatter {
-	private SimpleDateFormat dateFmt = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see java.util.logging.Formatter#format(java.util.logging.LogRecord)
-	 */
-	public ConsoleLogFormatter() {
-	}
-
-	@Override
-	public String format(LogRecord record) {
-		StringBuffer output = new StringBuffer();
-		String[] split = record.getSourceClassName().split("\\.");
-		String className = record.getSourceClassName();
-		if (split.length > 0)
-			className = split[split.length - 1];
-
-		// output.append(record.getLevel().intValue());
-		// output.append(Level.CONFIG.intValue());
-		if (record.getLevel().intValue() == Level.CONFIG.intValue()) {
-			output.append(record.getMessage());
-			output.append("\r\n");
-		} else {
-			output.append(dateFmt.format(new Date(record.getMillis())));
-			output.append(" ");
-			output.append(className);
-			output.append(".");
-			output.append(record.getSourceMethodName());
-			output.append(" ");
-			output.append(record.getLevel());
-			output.append(": ");
-			output.append(record.getMessage());
-			output.append("\r\n");
-			if (record.getThrown() != null) {
-				try {
-					StringWriter sw = new StringWriter();
-					PrintWriter pw = new PrintWriter(sw);
-					record.getThrown().printStackTrace(pw);
-					pw.close();
-					output.append(dateFmt.format(new Date(record.getMillis())));
-					output.append(" ");
-					output.append(sw.toString());
-					output.append("\r\n");
-				} catch (Exception ex) {
-				}
-			}
-		}
-		return output.toString();
-	}
+    
+    private static final String DATE_FORMAT = "yyyy.MM.dd HH:mm:ss";
+    private static final String LINE_SEPARATOR = System.lineSeparator();
+    
+    private final SimpleDateFormat dateFormatter;
+    
+    /**
+     * Creates a new ConsoleLogFormatter instance
+     */
+    public ConsoleLogFormatter() {
+        this.dateFormatter = new SimpleDateFormat(DATE_FORMAT);
+    }
+    
+    @Override
+    public String format(LogRecord record) {
+        StringBuilder output = new StringBuilder();
+        
+        // Handle CONFIG level messages (simple output without formatting)
+        if (record.getLevel().intValue() == Level.CONFIG.intValue()) {
+            output.append(record.getMessage());
+            output.append(LINE_SEPARATOR);
+            return output.toString();
+        }
+        
+        // Format standard log messages
+        formatStandardMessage(output, record);
+        
+        // Handle exceptions if present
+        if (record.getThrown() != null) {
+            formatException(output, record);
+        }
+        
+        return output.toString();
+    }
+    
+    /**
+     * Formats a standard log message with timestamp, class, method, level and message
+     */
+    private void formatStandardMessage(StringBuilder output, LogRecord record) {
+        output.append(dateFormatter.format(new Date(record.getMillis())));
+        output.append(" ");
+        output.append(extractSimpleClassName(record.getSourceClassName()));
+        output.append(".");
+        output.append(record.getSourceMethodName());
+        output.append(" ");
+        output.append(record.getLevel());
+        output.append(": ");
+        output.append(record.getMessage());
+        output.append(LINE_SEPARATOR);
+    }
+    
+    /**
+     * Formats exception information with stack trace
+     */
+    private void formatException(StringBuilder output, LogRecord record) {
+        try {
+            StringWriter stringWriter = new StringWriter();
+            PrintWriter printWriter = new PrintWriter(stringWriter);
+            
+            record.getThrown().printStackTrace(printWriter);
+            printWriter.close();
+            
+            output.append(dateFormatter.format(new Date(record.getMillis())));
+            output.append(" ");
+            output.append(stringWriter.toString());
+            output.append(LINE_SEPARATOR);
+            
+        } catch (Exception ex) {
+            // Silently ignore formatting errors to prevent logging loops
+        }
+    }
+    
+    /**
+     * Extracts the simple class name from a fully qualified class name
+     * @param fullClassName The fully qualified class name
+     * @return The simple class name, or the full name if extraction fails
+     */
+    private String extractSimpleClassName(String fullClassName) {
+        if (fullClassName == null) {
+            return "Unknown";
+        }
+        
+        String[] parts = fullClassName.split("\\.");
+        return parts.length > 0 ? parts[parts.length - 1] : fullClassName;
+    }
 }

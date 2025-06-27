@@ -154,6 +154,34 @@ public class L1TownLocation {
 		return taxRate;
 	}
 
+	public static int getNearestTownId(int x, int y, int mapId) {
+		if (mapId != 0 && mapId != 4) {
+			// Outras cidades não são acessíveis por mapa especial
+			return TOWNID_TALKING_ISLAND; // fallback
+		}
+
+		double closestDistance = Double.MAX_VALUE;
+		int nearestTownId = TOWNID_TALKING_ISLAND;
+
+		for (Map.Entry<Integer, Point[]> entry : townToEscapePoints.entrySet()) {
+			int townId = entry.getKey();
+			Point[] points = entry.getValue();
+
+			for (Point point : points) {
+				int px = point.getX();
+				int py = point.getY();
+
+				double distance = Math.hypot(x - px, y - py); // distância euclidiana
+
+				if (distance < closestDistance) {
+					closestDistance = distance;
+					nearestTownId = townId;
+				}
+			}
+		}
+		return nearestTownId;
+	}
+
 	public static int getTownIdByNpcid(int npcid) {
 		// Aden Castle: Aden throughout the kingdom
 		// Kent Castle: Kent, GURUDIN
