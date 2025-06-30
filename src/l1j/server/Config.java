@@ -169,6 +169,12 @@ public final class Config {
 	public static boolean RESET_DUNGEONS_DAILY;
 
 	public static String DUNGEON_RESET_TIME;
+	
+	public static boolean ENABLE_AUTO_QUEST_LEVEL15;
+	
+	public static boolean ENABLE_AUTO_QUEST_LEVEL30;
+	
+	public static boolean ENABLE_AUTO_QUEST_LEVEL50;
 
 	public static boolean RESTRICT_ACCOUNT_IPS;
 
@@ -799,7 +805,11 @@ public final class Config {
 			ALT_BOSS_EVENT_BOSSES = altSettings.getProperty("BossEventBosses", "");
 			ALT_BOSS_EVENT_DAILY_RESET = Boolean.parseBoolean(altSettings.getProperty("BossEventDailyReset", "False"));
 			ALT_BOSS_EVENT_RESET_TIME = altSettings.getProperty("BossEventDailyResetTime", "00:00");
+			ENABLE_AUTO_QUEST_LEVEL15 = Boolean.parseBoolean(altSettings.getProperty("EnableAutoQuestLevel15", "True"));
+			ENABLE_AUTO_QUEST_LEVEL30 = Boolean.parseBoolean(altSettings.getProperty("EnableAutoQuestLevel30", "True"));
+			ENABLE_AUTO_QUEST_LEVEL50 = Boolean.parseBoolean(altSettings.getProperty("EnableAutoQuestLevel50", "True"));
 
+			
 			ALT_DAYS_LIMIT_PLEDGE_JOIN = TimeUnit.DAYS
 					.toMillis(Integer.parseInt(altSettings.getProperty("DaysLimitPledgeJoin", "0")));
 

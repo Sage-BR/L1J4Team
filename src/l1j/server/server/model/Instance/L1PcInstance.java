@@ -3707,6 +3707,105 @@ public class L1PcInstance extends L1Character {
 			setHighLevel(getLevel());
 		}
 
+		// ======== LEVEL 15 ========
+		if (getLevel() == 15 && !getQuest().isEnd(L1Quest.QUEST_LEVEL15)) {
+		    getQuest().set_end(L1Quest.QUEST_LEVEL15);
+		    sendPackets(new S_SystemMessage("Congratulations check your bag, you got lvl 15."));
+
+		    if (isKnight()) {
+		        getInventory().storeItem(20005, 1); // Red Knight's Hood
+		        getInventory().storeItem(20027, 1); // Red Knight's Hood (alternate)
+		        getInventory().storeItem(49102, 1); // Dragon Tablet (DragonSkin) - Adicional
+		    } else if (isElf()) {
+		        getInventory().storeItem(20021, 1); // Elven Helm of Dexterity
+		        getInventory().storeItem(20039, 1); // Elven Helm of Constitution
+		    } else if (isWizard()) {
+		        getInventory().storeItem(20226, 1); // Book of Magic Powers
+		    } else if (isDarkelf()) {
+		        getInventory().storeItem(40598, 1); // Kan's Pouch
+		    } else if (isCrown()) {
+		        getInventory().storeItem(20065, 1); // Red Knight's Cloak
+		        getInventory().storeItem(40226, 1); // Spellbook(TrueTarget)
+		    } else if (isDragonKnight()) {
+		        getInventory().storeItem(275, 1); // Two-handed Sword of Dragonknight
+		        getInventory().storeItem(49102, 1); // Dragon Tablet(DragonSkin)
+		    } else if (isIllusionist()) {
+		        getInventory().storeItem(269, 1); // Wand of Illusionist
+		        getInventory().storeItem(49121, 1); // Memory Crystal(CubeIgnition)
+		    }
+		}
+
+		// ======== LEVEL 30 ========
+		if (getLevel() == 30 && !getQuest().isEnd(L1Quest.QUEST_LEVEL30)) {
+		    getQuest().set_end(L1Quest.QUEST_LEVEL30);
+		    sendPackets(new S_SystemMessage("Congratulations check your bag, you got lvl 30."));
+
+		    if (isKnight()) {
+		        getInventory().storeItem(30, 1); // Sword of Red Knights
+		        getInventory().storeItem(40607, 1); // Potion of Revival
+		        getInventory().storeItem(20230, 1); // Shield of Red Knight
+		    } else if (isElf()) {
+		        getInventory().storeItem(40588, 1); // Elven Treasure
+		    } else if (isWizard()) {
+		        getInventory().storeItem(115, 1); // Crystal Staff
+		    } else if (isDarkelf()) {
+		        getInventory().storeItem(40545, 1); // Ronde's Pouch
+		    } else if (isCrown()) {
+		        getInventory().storeItem(40570, 1); // Aria's Reward
+		    } else if (isDragonKnight()) {
+		        getInventory().storeItem(21103, 1); // Dragon Scale Guarder
+		        getInventory().storeItem(49107, 1); // Dragon Tablet(BloodLust)
+		    } else if (isIllusionist()) {
+		        getInventory().storeItem(21101, 1); // Spellbook of Illusionist
+		        getInventory().storeItem(49131, 1); // Memory Crystal(CubeShock)
+		    }
+		}
+
+		// ======== LEVEL 45 ========
+		if (getLevel() == 45 && !getQuest().isEnd(L1Quest.QUEST_LEVEL45)) {
+		    getQuest().set_end(L1Quest.QUEST_LEVEL45);
+		    sendPackets(new S_SystemMessage("Congratulations check your bag, you got lvl 45."));
+
+		    if (isKnight()) {
+		        getInventory().storeItem(20318, 1); // Belt of Bravery
+		    } else if (isElf()) {
+		        getInventory().storeItem(40546, 1); // Marshall's Reward
+		    } else if (isWizard()) {
+		        getInventory().storeItem(40599, 1); // Magic Bag of Talass
+		    } else if (isDarkelf()) {
+		        getInventory().storeItem(40553, 1); // Bludika's Pouch
+		    } else if (isCrown()) {
+		        getInventory().storeItem(20287, 1); // Ring of Guardian
+		    } else if (isDragonKnight()) {
+		        getInventory().storeItem(21102, 1); // Cloak of Dragon Knight
+		    } else if (isIllusionist()) {
+		        getInventory().storeItem(21100, 1); // Cloak of Illusionist
+		    }
+		}
+
+		// ======== LEVEL 50 ========
+		if (getLevel() == 50 && !getQuest().isEnd(L1Quest.QUEST_LEVEL50)) {
+		    getQuest().set_end(L1Quest.QUEST_LEVEL50);
+		    sendPackets(new S_SystemMessage("Congratulations check your bag, you got lvl 50."));
+
+		    if (isKnight()) {
+		        getInventory().storeItem(56, 1); // Death Blade
+		    } else if (isElf()) {
+		        getInventory().storeItem(184, 1); // Flame Bow
+		        getInventory().storeItem(50, 1); // Flame Sword
+		    } else if (isWizard()) {
+		        getInventory().storeItem(20225, 1); // Mana Crystal Ball
+		    } else if (isDarkelf()) {
+		        getInventory().storeItem(13, 1); // Finger of Death
+		    } else if (isCrown()) {
+		        getInventory().storeItem(51, 1); // Gold Scepter
+		    } else if (isDragonKnight()) {
+		        getInventory().storeItem(272, 1); // Destructor's Chain Sword
+		    } else if (isIllusionist()) {
+		        getInventory().storeItem(270, 1); // Sapphire Kiringku
+		    }
+		}
+		
 		try {
 			save();
 		} catch (Exception e) {

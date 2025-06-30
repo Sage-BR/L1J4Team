@@ -60,7 +60,7 @@ public class L1AddWarehouseInstance extends L1NpcInstance {
 	@Override
 	public void onTalkAction(L1PcInstance pc) {
 		int objid = getId();
-		L1NpcTalkData talking = NPCTalkDataTable.getInstance().getTemplate(getNpcTemplate().get_npcId());
+		NPCTalkDataTable.getInstance().getTemplate(getNpcTemplate().get_npcId());
 		int npcId = getNpcTemplate().get_npcId();
 		String htmlid = null;
 //     TODO: Implement this later.

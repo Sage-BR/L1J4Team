@@ -38,6 +38,12 @@ public class L1PcDeleteTimer implements Runnable {
 	@Override
 	public void run() {
 		try {
+			// Verifica se o jogador ainda está morto antes de desconectar
+			if (_pc == null || !_pc.isDead()) {
+				_log.info("L1PcDeleteTimer: cancelled because player is alive.");
+				return;
+			}
+			
 			_log.info("L1PcDeleteTimer: sending disconnect packet");
 			_pc.sendPackets(new S_Disconnect());
 		} catch (Exception e) {
