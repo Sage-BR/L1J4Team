@@ -7,9 +7,7 @@ See the project documentation on the
 [l1j-en project wiki](https://github.com/Sage-BR/L1J4Team/wiki) for general
 project info, the client connector, FAQ, and the setup guide.
 
-If you need any help, contact our
-[[mailing list](https://groups.google.com/forum/#!forum/l1j-en) or hop on the
-channel #l1j on Freenode IRC.](https://forum.4teambr.com/index.php?topic=39)
+If you need any help, contact our (https://forum.4teambr.com/index.php?topic=39)
 
 **l1j-en created**
 
