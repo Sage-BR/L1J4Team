@@ -4,32 +4,12 @@ l1j-en is an English-language server emulator for the South Korean MMORPG,
 Lineage 1.  It targets feature-complete support for the final 2009 US client.
 
 See the project documentation on the
-[l1j-en project wiki](https://github.com/l1j-en/classic/wiki) for general
+[l1j-en project wiki](https://github.com/Sage-BR/L1J4Team/wiki) for general
 project info, the client connector, FAQ, and the setup guide.
 
 If you need any help, contact our
-[mailing list](https://groups.google.com/forum/#!forum/l1j-en) or hop on the
-channel #l1j on Freenode IRC.
-
-### Project History
-
-**Pre-history**
-
-Prior to l1j-jp, history is somewhat problematic.  Several people claim they
-are the original creators.  Hard proof has been lacking. Plus so many years,
-revisions and changes have gone by, its relevancy may be questionable.  There
-was a barely functional project called LoSe that is possibly the parent of all
-l1j projects.
-
-**Pre-l1j-en**
-
-This code base was originally a fork of
-[l1j-jp](https://code.google.com/archive/p/l1j-jp/) named
-[lindc](https://code.google.com/archive/p/lindc/) translated to English with
-stability and security improvements. An important goal was to leave the code as
-similar/compatibile with l1j-jp as possible so we could take advantage of their
-content updates.  They had a larger team and progressed further/faster on that
-than we did.
+[[mailing list](https://groups.google.com/forum/#!forum/l1j-en) or hop on the
+channel #l1j on Freenode IRC.](https://forum.4teambr.com/index.php?topic=39)
 
 **l1j-en created**
 
@@ -97,7 +77,7 @@ copyright/trademark law.
 ### Contributing
 
 Report issues and suggest features and improvements on the
-[l1j.org issue tracker](https://github.com/l1j-en/classic/issues). Discussions and questions
+[l1j.org issue tracker](https://github.com/Sage-BR/L1J4Team/issues). Discussions and questions
 should go to the mailing list and IRC channel.
 
 Pull requests are always welcome!  For those migrating to Git from SVN, see the
